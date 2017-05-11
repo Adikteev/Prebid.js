@@ -1,5 +1,5 @@
 {
-  "name": "Adikteev/prebid.js",
+  "name": "adikteev/prebid.js",
   "version": "0.24.0-pre",
   "description": "Header Bidding Management Library",
   "main": "src/prebid.js",
