@@ -46,7 +46,7 @@ var CriteoAdapter = function CriteoAdapter() {
           new Criteo.PubTag.DirectBidding.DirectBiddingSlot(
             bid.placementCode,
             bid.params.zoneId,
- +          bid.params.nativeCallback ? bid.params.nativeCallback : undefined
+            bid.params.nativeCallback ? bid.params.nativeCallback : undefined
             undefined,
             bid.transactionId
           )
