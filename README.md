@@ -79,17 +79,16 @@ For more info about yarn see https://yarnpkg.com
 
 In case you'd like to explicitly show that your project uses `prebid.js` and want a reproducible build, consider adding it as an `yarn` dependency.
 
-- Add `prebid.js` as a `yarn` dependency of your project: `yarn add prebid.js`
-- Duplicate `node_modules/prebid.js/adapters.json` to under your project path, e.g. `path/to/your/list-of-adapters.json`
-- Remove the unnecessary adapters
-- Run the `prebid.js` build under the `node_modules/prebid.js/` folder
+- Add `prebid_adikteev` as a `yarn` dependency of your project: `yarn add prebid_adikteev`
+- Edit the adapters list in `path/to/your/list-of-adapters.json`
+- Run the `prebid_adikteev` build under the `node_modules/prebid_adikteev/` folder
 
         $ gulp build --adapters path/to/your/list-of-adapters.json
 
-Most likely your custom `prebid.js` will only change when there's:
+Most likely your custom `prebid_adikteev` will only change when there's:
 
 - A change in your list of adapters
-- A new release of `prebid.js`
+- A new release of `prebid_adikteev`
 
 Having said that, you are probably safe to check your custom bundle into your project.  You can also generate it in your build process.
 
