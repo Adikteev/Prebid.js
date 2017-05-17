@@ -1,11 +1,12 @@
 var bidfactory = require('../bidfactory.js');
 var bidmanager = require('../bidmanager.js');
 var adloader = require('../adloader');
+var utils = require('../utils');
 
 var CriteoAdapter = function CriteoAdapter() {
 
   var _publisherTagUrl = window.location.protocol + '//static.criteo.net/js/ld/publishertag.js';
-  var _bidderCode = 'criteo';
+  var _bidderCode = 'criteo_native';
   var _profileId = 125;
 
   function _callBids(params) {
@@ -34,11 +35,8 @@ var CriteoAdapter = function CriteoAdapter() {
 
     // generate the bidding event
     var biddingEventFunc = function () {
-
       var bids = params.bids || [];
-
       var slots = [];
-
       var isAudit = false;
 
       // build slots before sending one multi-slots bid request
@@ -48,7 +46,7 @@ var CriteoAdapter = function CriteoAdapter() {
           new Criteo.PubTag.DirectBidding.DirectBiddingSlot(
             bid.placementCode,
             bid.params.zoneId,
-            undefined,
+            bid.params.nativeCallback ? bid.params.nativeCallback : undefined,
             bid.transactionId
           )
         );
@@ -105,18 +103,8 @@ var CriteoAdapter = function CriteoAdapter() {
         }
 
         // register the bid response
-        var bidObject;
-        if (bidResponse) {
-          bidObject = bidfactory.createBid(1);
-          bidObject.bidderCode = _bidderCode;
-          bidObject.cpm = bidResponse.cpm;
-          bidObject.ad = bidResponse.creative;
-          bidObject.width = bidResponse.width;
-          bidObject.height = bidResponse.height;
-        }
-        else {
-          bidObject = _invalidBidResponse();
-        }
+        let bidObject = _buildBidObject(bidResponse, slots[i]);
+
         bidmanager.addBidResponse(slots[i].impId, bidObject);
       }
     };
@@ -135,6 +123,51 @@ var CriteoAdapter = function CriteoAdapter() {
     bidObject.bidderCode = _bidderCode;
     return bidObject;
   }
+
+  function _buildBidObject(bidResponse, slot) {
+    let bidObject;
+    if (bidResponse) {
+
+    // map the common fields
+    bidObject = bidfactory.createBid(1);
+    bidObject.bidderCode = _bidderCode;
+    bidObject.cpm = bidResponse.cpm;
+
+    // in case of native
+    if (slot.nativeCallback && bidResponse.native) {
+
+      if (typeof slot.nativeCallback !== "function") {
+        utils.logError("Criteo bid: nativeCallback parameter is not a function");
+      } else {
+
+        // store the callbacks in a global object
+        window.criteo_pubtag.native_slots = window.criteo_pubtag.native_slots || {};
+        window.criteo_pubtag.native_slots[""+bidObject.adId] = { callback: slot.nativeCallback, nativeResponse: bidResponse.native };
+
+        // this code is executed in an iframe, we need to get a reference to the
+        // publishertag in the main window to retrieve native responses and callbacks.
+        // it doesn't work with safeframes
+        bidObject.ad =  "<script type=\"text/javascript\">";
+        bidObject.ad += "let win = window; for (let i=0; i<10; ++i) { win = win.parent; if (win.criteo_pubtag && win.criteo_pubtag.native_slots) {";
+        bidObject.ad += "let responseSlot = win.criteo_pubtag.native_slots[\"" + bidObject.adId + "\"];";
+        bidObject.ad += "responseSlot.callback(responseSlot.nativeResponse);break;";
+        bidObject.ad += "}}</script>";
+      }
+    } else {
+      // width and height are only relevant with non-native requests.
+      // native requests will always return a 2x2 zone size.
+      bidObject.width = bidResponse.width;
+      bidObject.height = bidResponse.height;
+      bidObject.ad = bidResponse.creative;
+    }
+
+  }
+  else {
+    bidObject = _invalidBidResponse();
+  }
+  return bidObject;
+}
+
 
   return {
     callBids: _callBids
