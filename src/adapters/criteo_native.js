@@ -139,6 +139,7 @@ var CriteoAdapter = function CriteoAdapter() {
       if (typeof slot.nativeCallback !== "function") {
         utils.logError("Criteo bid: nativeCallback parameter is not a function");
       } else {
+        bidObject.native = bidResponse.native;
 
         // store the callbacks in a global object
         window.criteo_pubtag.native_slots = window.criteo_pubtag.native_slots || {};
