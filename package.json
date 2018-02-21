@@ -4,10 +4,12 @@
   "description": "Header Bidding Management Library",
   "main": "src/prebid.js",
   "scripts": {
+    "postinstall": "yarn build",
     "test": "gulp run-tests",
     "lint": "gulp lint",
     "build": "gulp build --modules=modules.json"
   },
+  "files": ["build/dist"],
   "repository": {
     "type": "git",
     "url": "https://github.com/Adikteev/Prebid.js.git"

@@ -69,11 +69,9 @@ For more info about yarn see https://yarnpkg.com
 
         $ gulp build --modules=openxBidAdapter,rubiconBidAdapter,sovrnBidAdapter
 
-
 Alternatively, a `.json` file can be specified that contains a list of modules you would like to include.
 
     $ gulp build --modules=modules.json
-
 
 With `modules.json` containing the following
 
