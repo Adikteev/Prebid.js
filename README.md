@@ -15,10 +15,10 @@ Working examples can be found in [the developer docs](http://prebid.org/dev-docs
 
 **Table of Contents**
 
-- [Install](#Install)
-- [Build](#Build)
-- [Run](#Run)
-- [Contribute](#Contribute)
+* [Install](#Install)
+* [Build](#Build)
+* [Run](#Run)
+* [Contribute](#Contribute)
 
 <a name="Install"></a>
 
@@ -32,7 +32,7 @@ Prebid supports the `yarn` npm client. This is an alternative to using `npm` for
 
 For more info, see [the Yarn documentation](https://yarnpkg.com).
 
-*Note:* You need to have `NodeJS` 4.x or greater installed.
+_Note:_ You need to have `NodeJS` 4.x or greater installed.
 
 <a name="Build"></a>
 
@@ -44,16 +44,16 @@ To build the project on your local machine, run:
 
 This runs some code quality checks, starts a web server at `http://localhost:9999` serving from the project root and generates the following files:
 
-+ `./build/dev/prebid.js` - Full source code for dev and debug
-+ `./build/dev/prebid.js.map` - Source map for dev and debug
-+ `./build/dist/prebid.js` - Minified production code
-+ `./prebid.js_<version>.zip` - Distributable zip archive
+* `./build/dev/prebid.js` - Full source code for dev and debug
+* `./build/dev/prebid.js.map` - Source map for dev and debug
+* `./build/dist/prebid.js` - Minified production code
+* `./prebid.js_<version>.zip` - Distributable zip archive
 
 ### Build Optimization
 
 The standard build output contains all the available modules from within the `modules` folder.
 
-You might want to exclude some/most of them from the final bundle.  To make sure the build only includes the modules you want, you can specify the modules to be included with the `--modules` CLI argument.
+You might want to exclude some/most of them from the final bundle. To make sure the build only includes the modules you want, you can specify the modules to be included with the `--modules` CLI argument.
 
 For example, when running the serve command: `gulp serve --modules=openxBidAdapter,rubiconBidAdapter,sovrnBidAdapter`
 
@@ -64,16 +64,19 @@ Prebid now supports the `yarn` npm client. This is an alternative to using `npm`
 
 For more info about yarn see https://yarnpkg.com
 
-- Clone the repo, run `yarn install`
-- Then run the build:
+* Clone the repo, run `yarn install`
+* Then run the build:
 
         $ gulp build --modules=openxBidAdapter,rubiconBidAdapter,sovrnBidAdapter
-        
+
+
 Alternatively, a `.json` file can be specified that contains a list of modules you would like to include.
 
     $ gulp build --modules=modules.json
-        
+
+
 With `modules.json` containing the following
+
 ```json modules.json
 [
   "openxBidAdapter",
@@ -86,17 +89,17 @@ With `modules.json` containing the following
 
 In case you'd like to explicitly show that your project uses `prebid.js` and want a reproducible build, consider adding it as an `yarn` dependency.
 
-- Add `prebid_adikteev` as a `yarn` dependency of your project: `yarn add prebid_adikteev`
-- Run the `prebid_adikteev` build under the `node_modules/prebid_adikteev/` folder
+* Add `adikteev/prebid.js` as a `yarn` dependency of your project: `yarn add adikteev/prebid.js`
+* Run the `prebid.js` build under the `node_modules/prebid.js/` folder
 
         $ gulp build --modules=path/to/your/list-of-modules.json
 
-Most likely your custom `prebid_adikteev` will only change when there's:
+Most likely your custom `prebid.js` will only change when there's:
 
-- A change in your list of modules
-- A new release of `prebid_adikteev`
+* A change in your list of modules
+* A new release of `prebid`
 
-Having said that, you are probably safe to check your custom bundle into your project.  You can also generate it in your build process.
+Having said that, you are probably safe to check your custom bundle into your project. You can also generate it in your build process.
 
 <a name="Run"></a>
 
@@ -113,6 +116,7 @@ To run the unit tests:
 ```bash
 gulp test
 ```
+
 To run tests for a single file:
 
 ```bash
@@ -135,11 +139,13 @@ For development:
 
 ```javascript
 (function() {
-    var d = document, pbs = d.createElement('script'), pro = d.location.protocol;
-    pbs.type = 'text/javascript';
-    pbs.src = ((pro === 'https:') ? 'https' : 'http') + './build/dev/prebid.js';
-    var target = document.getElementsByTagName('head')[0];
-    target.insertBefore(pbs, target.firstChild);
+  var d = document,
+    pbs = d.createElement("script"),
+    pro = d.location.protocol;
+  pbs.type = "text/javascript";
+  pbs.src = (pro === "https:" ? "https" : "http") + "./build/dev/prebid.js";
+  var target = document.getElementsByTagName("head")[0];
+  target.insertBefore(pbs, target.firstChild);
 })();
 ```
 
@@ -147,11 +153,13 @@ For deployment:
 
 ```javascript
 (function() {
-    var d = document, pbs = d.createElement('script'), pro = d.location.protocol;
-    pbs.type = 'text/javascript';
-    pbs.src = ((pro === 'https:') ? 'https' : 'http') + './build/dist/prebid.js';
-    var target = document.getElementsByTagName('head')[0];
-    target.insertBefore(pbs, target.firstChild);
+  var d = document,
+    pbs = d.createElement("script"),
+    pro = d.location.protocol;
+  pbs.type = "text/javascript";
+  pbs.src = (pro === "https:" ? "https" : "http") + "./build/dist/prebid.js";
+  var target = document.getElementsByTagName("head")[0];
+  target.insertBefore(pbs, target.firstChild);
 })();
 ```
 
@@ -167,7 +175,7 @@ directory you will have sourcemaps available in your browser's developer tools.
 
 To run the example file, go to:
 
-+ `http://localhost:9999/integrationExamples/gpt/pbjs_example_gpt.html`
+* `http://localhost:9999/integrationExamples/gpt/pbjs_example_gpt.html`
 
 As you make code changes, the bundles will be rebuilt and the page reloaded automatically.
 
@@ -199,11 +207,11 @@ If you are contributing code, you should [configure your editor](http://eslint.o
 
 This will run tests and keep the Karma test browser open. If your `prebid.js` file is sourced from the `./build/dev` directory you will also have sourcemaps available when using your browser's developer tools.
 
-+ To access the Karma debug page, go to `http://localhost:9876/debug.html`
+* To access the Karma debug page, go to `http://localhost:9876/debug.html`
 
-+ For test results, see the console
+* For test results, see the console
 
-+ To set breakpoints in source code, see the developer tools
+* To set breakpoints in source code, see the developer tools
 
 Detailed code coverage reporting can be generated explicitly with
 
@@ -213,7 +221,7 @@ The results will be in
 
         ./build/coverage
 
-*Note*: Starting in June 2016, all pull requests to Prebid.js need to include tests with greater than 80% code coverage before they can be merged.  For more information, see [#421](https://github.com/prebid/Prebid.js/issues/421).
+_Note_: Starting in June 2016, all pull requests to Prebid.js need to include tests with greater than 80% code coverage before they can be merged. For more information, see [#421](https://github.com/prebid/Prebid.js/issues/421).
 
 For instructions on writing tests for Prebid.js, see [Testing Prebid.js](http://prebid.org/dev-docs/testing-prebid.html).
 
@@ -222,4 +230,5 @@ For instructions on writing tests for Prebid.js, see [Testing Prebid.js](http://
 Prebid.js is supported on IE10+ and modern browsers.
 
 ### Governance
+
 Review our governance model [here](https://github.com/prebid/Prebid.js/tree/master/governance.md).
