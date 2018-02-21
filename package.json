@@ -5,18 +5,14 @@
   "main": "src/prebid.js",
   "scripts": {
     "test": "gulp run-tests",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "build": "gulp build --modules=modules.json"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Adikteev/Prebid.js.git"
   },
-  "keywords": [
-    "advertising",
-    "auction",
-    "header bidding",
-    "prebid"
-  ],
+  "keywords": ["advertising", "auction", "header bidding", "prebid"],
   "globalVarName": "ak_pbjs",
   "author": "the prebid.js contributors",
   "license": "Apache-2.0",
