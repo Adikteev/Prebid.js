@@ -5,8 +5,13 @@
   "main": "src/prebid.js",
   "scripts": {
     "test": "gulp test",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "build": "gulp build --modules=modules.json",
+    "postinstall": "yarn build"
   },
+  "files": [
+    "build/dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/prebid/Prebid.js.git"
@@ -17,7 +22,7 @@
     "header bidding",
     "prebid"
   ],
-  "globalVarName": "pbjs",
+  "globalVarName": "ak_pbjs",
   "author": "the prebid.js contributors",
   "license": "Apache-2.0",
   "engines": {
