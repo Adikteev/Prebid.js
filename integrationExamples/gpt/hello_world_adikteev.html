@@ -62,7 +62,6 @@
 
         // in case PBJS doesn't load
         setTimeout(function () {
-            console.log("prebid.js setTimeout");
             initAdserver();
         }, FAILSAFE_TIMEOUT);
 
@@ -78,16 +77,13 @@
 </head>
 
 <body>
-<h2>Basic Prebid.js Example</h2>
-<h5>Div-1</h5>
-<div id='div-1'>
-    <script type='text/javascript'>
-        googletag.cmd.push(function () {
-            googletag.display('div-1');
-        });
-
-    </script>
-</div>
+<h2>Adikteev Integration Example</h2>
+<div id='div-1' style="width:742px;"></div>
+<script type='text/javascript'>
+    googletag.cmd.push(function () {
+        googletag.display('div-1');
+    });
+</script>
 </body>
 
 </html>
