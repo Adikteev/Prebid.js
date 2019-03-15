@@ -80,21 +80,21 @@ const serverResponse =
     ]
   };
 
-describe('emoteevBidAdapter', () => {
+describe('emoteevBidAdapter', function () {
   afterEach(function () {
     config.resetConfig();
   });
 
   const adapter = newBidder(spec);
 
-  describe('inherited functions', () => {
-    it('exists and is a function', () => {
+  describe('inherited functions', function () {
+    it('exists and is a function', function () {
       expect(adapter.callBids).to.exist.and.to.be.a('function');
     });
   });
 
-  describe('conformBidRequest', () => {
-    it('returns a bid-request', () => {
+  describe('conformBidRequest', function () {
+    it('returns a bid-request', function () {
       expect(conformBidRequest(cannedValidBidRequests[0])).to.deep.equal({
         params: cannedValidBidRequests[0].params,
         crumbs: cannedValidBidRequests[0].crumbs,
@@ -105,26 +105,26 @@ describe('emoteevBidAdapter', () => {
     })
   });
 
-  describe('emoteevDebug', () => {
+  describe('emoteevDebug', function () {
     expect(emoteevDebug(null, null)).to.deep.equal(false);
     expect(emoteevDebug(null, true)).to.deep.equal(true);
     expect(emoteevDebug(JSON.stringify(true), null)).to.deep.equal(true);
   });
 
-  describe('emoteevEnv', () => {
+  describe('emoteevEnv', function () {
     expect(emoteevEnv(null, null)).to.deep.equal(DEFAULT_ENV);
     expect(emoteevEnv(null, STAGING)).to.deep.equal(STAGING);
     expect(emoteevEnv(STAGING, null)).to.deep.equal(STAGING);
   });
 
-  describe('emoteevOverrides', () => {
+  describe('emoteevOverrides', function () {
     expect(emoteevOverrides(null, null)).to.deep.equal({});
     expect(emoteevOverrides(JSON.stringify({a: 1}), null)).to.deep.equal({a: 1});
     expect(emoteevOverrides('incorrect', null)).to.deep.equal({});
     expect(emoteevOverrides(null, {a: 1})).to.deep.equal({a: 1});
   });
 
-  describe('emoteevUrl', () => {
+  describe('emoteevUrl', function () {
     expect(emoteevUrl(null)).to.deep.equal(EMOTEEV_BASE_URL);
     expect(emoteevUrl('anything')).to.deep.equal(EMOTEEV_BASE_URL);
     expect(emoteevUrl(PRODUCTION)).to.deep.equal(EMOTEEV_BASE_URL);
@@ -132,7 +132,7 @@ describe('emoteevBidAdapter', () => {
     expect(emoteevUrl(DEVELOPMENT)).to.deep.equal(EMOTEEV_BASE_URL_DEVELOPMENT);
   });
 
-  describe('endpointUrl', () => {
+  describe('endpointUrl', function () {
     expect(endpointUrl(null, null)).to.deep.equal(EMOTEEV_BASE_URL.concat(ENDPOINT_PATH));
     expect(endpointUrl(null, PRODUCTION)).to.deep.equal(EMOTEEV_BASE_URL.concat(ENDPOINT_PATH));
     expect(endpointUrl(PRODUCTION, null)).to.deep.equal(EMOTEEV_BASE_URL.concat(ENDPOINT_PATH));
@@ -142,7 +142,7 @@ describe('emoteevBidAdapter', () => {
     expect(endpointUrl(DEVELOPMENT, null)).to.deep.equal(EMOTEEV_BASE_URL_DEVELOPMENT.concat(ENDPOINT_PATH));
   });
 
-  describe('userSyncIframeUrl', () => {
+  describe('userSyncIframeUrl', function () {
     expect(userSyncIframeUrl(null, null)).to.deep.equal(EMOTEEV_BASE_URL.concat(USER_SYNC_IFRAME_URL_PATH));
     expect(userSyncIframeUrl(null, PRODUCTION)).to.deep.equal(EMOTEEV_BASE_URL.concat(USER_SYNC_IFRAME_URL_PATH));
     expect(userSyncIframeUrl(PRODUCTION, null)).to.deep.equal(EMOTEEV_BASE_URL.concat(USER_SYNC_IFRAME_URL_PATH));
@@ -152,7 +152,7 @@ describe('emoteevBidAdapter', () => {
     expect(userSyncIframeUrl(DEVELOPMENT, null)).to.deep.equal(EMOTEEV_BASE_URL_DEVELOPMENT.concat(USER_SYNC_IFRAME_URL_PATH));
   });
 
-  describe('userSyncImageUrl', () => {
+  describe('userSyncImageUrl', function () {
     expect(userSyncImageUrl(null, null)).to.deep.equal(EMOTEEV_BASE_URL.concat(USER_SYNC_IMAGE_URL_PATH));
     expect(userSyncImageUrl(null, PRODUCTION)).to.deep.equal(EMOTEEV_BASE_URL.concat(USER_SYNC_IMAGE_URL_PATH));
     expect(userSyncImageUrl(PRODUCTION, null)).to.deep.equal(EMOTEEV_BASE_URL.concat(USER_SYNC_IMAGE_URL_PATH));
@@ -162,7 +162,7 @@ describe('emoteevBidAdapter', () => {
     expect(userSyncImageUrl(DEVELOPMENT, null)).to.deep.equal(EMOTEEV_BASE_URL_DEVELOPMENT.concat(USER_SYNC_IMAGE_URL_PATH));
   });
 
-  describe('getViewDimensions', () => {
+  describe('getViewDimensions', function () {
     const window = {
       innerWidth: 1024,
       innerHeight: 768
@@ -195,13 +195,13 @@ describe('emoteevBidAdapter', () => {
     expect(getViewDimensions({}, documentWithBody)).to.deep.equal({width: 512, height: 384});
   });
 
-  describe('getDeviceDimensions', () => {
+  describe('getDeviceDimensions', function () {
     const window = {screen: {width: 1024, height: 768}};
     expect(getDeviceDimensions(window)).to.deep.equal({width: 1024, height: 768});
     expect(getDeviceDimensions({})).to.deep.equal({width: '', height: ''});
   });
 
-  describe('getDocumentDimensions', () => {
+  describe('getDocumentDimensions', function () {
     expect(getDocumentDimensions({
       documentElement: {
         clientWidth: 1,
@@ -263,7 +263,7 @@ describe('emoteevBidAdapter', () => {
     })).to.deep.equal({width: '', height: ''});
   });
 
-  describe('getDeviceInfo', () => {
+  describe('getDeviceInfo', function () {
     expect(getDeviceInfo(
       {width: 1, height: 2},
       {width: 3, height: 4},
@@ -280,8 +280,8 @@ describe('emoteevBidAdapter', () => {
     });
   });
 
-  describe('isBidRequestValid', () => {
-    it('should return true when required params found', () => {
+  describe('isBidRequestValid', function () {
+    it('should return true when required params found', function () {
       const validBid = {
         bidder: 'emoteev',
         params: {
@@ -296,7 +296,7 @@ describe('emoteevBidAdapter', () => {
       expect(spec.isBidRequestValid(validBid)).to.equal(true);
     });
 
-    it('should return false when required params are invalid', () => {
+    it('should return false when required params are invalid', function () {
       expect(spec.isBidRequestValid({
         bidder: '', // invalid bidder
         params: {
@@ -333,7 +333,7 @@ describe('emoteevBidAdapter', () => {
     });
   });
 
-  describe('requestsPayload', () => {
+  describe('requestsPayload', function () {
     const
       currency = 'EUR',
       emoteevEnv = STAGING,
@@ -396,7 +396,7 @@ describe('emoteevBidAdapter', () => {
     expect(payload.userAgent).to.deep.equal(navigator.userAgent);
   });
 
-  describe('buildRequests', () => {
+  describe('buildRequests', function () {
     const request = buildRequests(cannedValidBidRequests, cannedBidderRequest);
     expect(request).to.exist.and.have.all.keys(
       'method',
@@ -407,8 +407,8 @@ describe('emoteevBidAdapter', () => {
     expect(request.url).to.equal(endpointUrl(emoteevEnv, emoteevEnv));
   });
 
-  describe('interpretResponse', () => {
-    it('bid objects from response', () => {
+  describe('interpretResponse', function () {
+    it('bid objects from response', function () {
       const bidResponses = spec.interpretResponse(serverResponse);
       expect(bidResponses).to.be.an('array').that.is.not.empty; // yes, syntax is correct
       expect(bidResponses[0]).to.have.all.keys(
@@ -435,7 +435,7 @@ describe('emoteevBidAdapter', () => {
     });
   });
 
-  describe('syncIframe', () => {
+  describe('syncIframe', function () {
     expect(syncIframe([], false, PRODUCTION, PRODUCTION)).to.deep.equal([]);
     expect(syncIframe([], true, PRODUCTION, PRODUCTION)).to.deep.equal([{
       type: 'iframe',
@@ -443,7 +443,7 @@ describe('emoteevBidAdapter', () => {
     }]);
   });
 
-  describe('syncPixel', () => {
+  describe('syncPixel', function () {
     expect(syncPixel([], false, PRODUCTION, PRODUCTION)).to.deep.equal([]);
     expect(syncPixel([], true, PRODUCTION, PRODUCTION)).to.deep.equal([{
       type: 'image',
@@ -451,14 +451,14 @@ describe('emoteevBidAdapter', () => {
     }]);
   });
 
-  describe('getUserSyncs', () => {
+  describe('getUserSyncs', function () {
     assert.isArray(getUserSyncs({
       iframeEnabled: true,
       pixelEnabled: true
     }));
   });
 
-  describe('isWebGLEnabled', () => {
+  describe('isWebGLEnabled', function () {
     const document = new Document();
     assert.isBoolean(isWebGLEnabled(document));
   });
