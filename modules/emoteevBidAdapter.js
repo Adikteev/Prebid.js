@@ -4,7 +4,7 @@ import * as utils from '../src/utils';
 import {config} from '../src/config';
 
 export const BIDDER_CODE = 'emoteev';
-export const EMOTEEV_PBJS_VERSION = '1.35.0';
+export const ADAPTER_VERSION = '1.35.0';
 
 export const EMOTEEV_BASE_URL = 'https://prebid.emoteev.com';
 export const EMOTEEV_BASE_URL_STAGING = 'https://prebid-staging.emoteev.com';
@@ -191,7 +191,7 @@ export const requestsPayload = (validBidRequests, bidderRequest, config) => {
   const emoteevConfig = (config['emoteev'] || {});
   return Object.assign({},
     {
-      emoteevPbjsVersion: EMOTEEV_PBJS_VERSION,
+      adapterVersion: ADAPTER_VERSION,
       bidRequests: validBidRequests.map(conformBidRequest),
       currency: config['currency'],
       debug: emoteevDebug(utils.getParameterByName('emoteevDebug'), emoteevConfig['debug']),

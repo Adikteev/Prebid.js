@@ -7,7 +7,7 @@ import {
   EMOTEEV_BASE_URL,
   EMOTEEV_BASE_URL_DEVELOPMENT,
   EMOTEEV_BASE_URL_STAGING,
-  EMOTEEV_PBJS_VERSION,
+  ADAPTER_VERSION,
   emoteevDebug,
   emoteevEnv,
   emoteevOverrides,
@@ -355,7 +355,7 @@ describe('emoteevBidAdapter', () => {
       });
 
     expect(payload).to.exist.and.have.all.keys(
-      'emoteevPbjsVersion',
+      'adapterVersion',
       'bidRequests',
       'currency',
       'debug',
@@ -374,7 +374,7 @@ describe('emoteevBidAdapter', () => {
       'bidderRequestId',
     );
 
-    expect(payload.emoteevPbjsVersion).to.deep.equal(EMOTEEV_PBJS_VERSION);
+    expect(payload.adapterVersion).to.deep.equal(ADAPTER_VERSION);
     expect(payload.bidRequests[0].params).to.deep.equal(cannedValidBidRequests[0].params);
     expect(payload.bidRequests[0].crumbs).to.deep.equal(cannedValidBidRequests[0].crumbs);
     expect(payload.bidRequests[0].mediaTypes).to.deep.equal(cannedValidBidRequests[0].mediaTypes);
