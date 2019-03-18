@@ -355,7 +355,7 @@ describe('emoteevBidAdapter', function () {
       });
 
     expect(payload).to.exist.and.have.all.keys(
-      'adapterVersion',
+      'akPbjsVersion',
       'bidRequests',
       'currency',
       'debug',
@@ -374,7 +374,7 @@ describe('emoteevBidAdapter', function () {
       'bidderRequestId',
     );
 
-    expect(payload.adapterVersion).to.deep.equal(ADAPTER_VERSION);
+    expect(payload.akPbjsVersion).to.deep.equal(ADAPTER_VERSION);
     expect(payload.bidRequests[0].params).to.deep.equal(cannedValidBidRequests[0].params);
     expect(payload.bidRequests[0].crumbs).to.deep.equal(cannedValidBidRequests[0].crumbs);
     expect(payload.bidRequests[0].mediaTypes).to.deep.equal(cannedValidBidRequests[0].mediaTypes);

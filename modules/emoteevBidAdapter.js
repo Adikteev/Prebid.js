@@ -191,7 +191,7 @@ export const requestsPayload = (validBidRequests, bidderRequest, config) => {
   const emoteevConfig = (config['emoteev'] || {});
   return Object.assign({},
     {
-      adapterVersion: ADAPTER_VERSION,
+      akPbjsVersion: ADAPTER_VERSION,
       bidRequests: validBidRequests.map(conformBidRequest),
       currency: config['currency'],
       debug: emoteevDebug(utils.getParameterByName('emoteevDebug'), emoteevConfig['debug']),
