@@ -1,0 +1,69 @@
+<html>
+<head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script type="text/javascript" src="../../build/dev/prebid.js" async></script>
+
+    <script>
+      const sizes = [
+        [750, 200]
+      ];
+      const PREBID_TIMEOUT = 3000;
+
+      const adUnits = [{
+        code: 'adikteevBidder',
+        mediaTypes: {
+          banner: {
+            sizes: sizes
+          }
+        },
+        bids: [{
+          bidder: 'emoteev',
+          params: {
+            adSpaceId: 5084,
+          }
+        }]
+      }];
+
+      var pbjs = {};
+      pbjs.que = pbjs.que || [];
+
+      pbjs.que.push(function () {
+        pbjs.setConfig({
+          bidderTimeout: PREBID_TIMEOUT,
+          adikteev: {
+            env: 'production'
+          }
+        });
+        pbjs.addAdUnits(adUnits);
+        pbjs.requestBids({
+          bidsBackHandler: () => {
+            // set guard
+            if (pbjs.adserverRequestSent) {
+              return;
+            }
+            pbjs.adserverRequestSent = true;
+            Object.values(pbjs.getBidResponses()).forEach(response => {
+              response.bids.forEach(bidObject => {
+                pbjs.renderAd(document.getElementById('adikteevIframe').contentDocument, bidObject.adId);
+              });
+            });
+          }
+        })
+      });
+    </script>
+    <style>
+        #adikteevIframe {
+            border: 0
+        }
+    </style>
+</head>
+
+<body>
+<h2>Basic Prebid.js Example</h2>
+<h5>Div-1</h5>
+<div id='div-1'>
+    <iframe id='adikteevIframe'></iframe>
+</div>
+</body>
+
+</html>
